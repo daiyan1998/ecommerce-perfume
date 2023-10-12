@@ -159,7 +159,11 @@ export default function Header() {
 
   return (
     <Container sx={{ flexGrow: 1 }}>
-      <AppBar variant="none" position="static">
+      <AppBar
+        variant="none"
+        sx={{ bgcolor: "white", color: "black" }}
+        position="static"
+      >
         <Toolbar>
           {/* NavLink Component */}
           <NavLink />
@@ -173,7 +177,7 @@ export default function Header() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: "flex" }}>
             <IconButton
               size="large"
               aria-label="show 4 new mails"
@@ -218,13 +222,13 @@ export default function Header() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              {/* <MoreIcon /> */}
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      {/* {renderMobileMenu}
+      {renderMenu} */}
     </Container>
   );
 }

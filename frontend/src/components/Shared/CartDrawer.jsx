@@ -28,7 +28,7 @@ export default function CartDrawer() {
   const list = (anchor) => (
     <Box
       sx={{
-        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+        width: { lg: 250, xs: "100%" },
         height: "calc(100% - 74px)",
       }}
       role="presentation"
@@ -61,7 +61,7 @@ export default function CartDrawer() {
 
   return (
     <div>
-      <React.Fragment>
+      <>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -80,7 +80,7 @@ export default function CartDrawer() {
         >
           {list("right")}
         </Drawer>
-      </React.Fragment>
+      </>
     </div>
   );
 }

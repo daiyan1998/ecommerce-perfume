@@ -1,12 +1,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "@emotion/styled";
+import Link from "next/link";
 
 const pages = [
   {
     title: "Home",
-    sub: ["Home1"],
+    navigate: "/",
   },
   {
     title: "Shop",
@@ -22,7 +23,6 @@ export default function NavLink() {
       "& .showMenu": {
         display: "block",
         transform: "translateY(0px)",
-        background: theme.palette.primary.main,
       },
     },
   }));
@@ -37,18 +37,32 @@ export default function NavLink() {
 
   return (
     <Box display="flex">
-      {pages.map(({ title, sub }) => (
+      {pages.map(({ title, sub, navigate }) => (
         <NavBox key={title} position="relative">
-          <Button sx={{ color: "black", fontSize: "1rem", fontWeight: 500 }}>
-            {title}
-          </Button>
-          <NavMenu className="showMenu">
-            {sub.map((s) => {
-              console.log({ s, title });
+          <Link href={navigate ? navigate : ""}>
+            <Button sx={{ color: "black", fontSize: "1rem", fontWeight: 500 }}>
+              {title}
+            </Button>
+          </Link>
+          <NavMenu className="showMenu" bgcolor="white">
+            {sub?.map((s) => {
               return (
-                <Button key={s} sx={{ color: "black" }}>
+                <Typography
+                  sx={{
+                    display: "block",
+                    cursor: "pointer",
+                    bgcolor: "white",
+                    color: "black",
+                    p: "1rem 2rem",
+                    ":hover": {
+                      bgcolor: "black",
+                      color: "white",
+                    },
+                  }}
+                  key={s}
+                >
                   {s}
-                </Button>
+                </Typography>
               );
             })}
           </NavMenu>

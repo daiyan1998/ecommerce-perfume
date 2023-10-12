@@ -1,15 +1,10 @@
 "use client";
-
-import Header from "@/components/Header";
-import Banner from "@/components/HomeScreen/Banner";
-import BestSeller from "@/components/HomeScreen/BestSeller";
+import HomeScreen from "@/screens/HomeScreen";
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <Banner />
-      <BestSeller />
+      <HomeScreen />
     </>
   );
 }
