@@ -1,13 +1,13 @@
 "use client";
 import { Container, CssBaseline, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import ProductCard from "./Shared/ProductCard";
 import styled from "@emotion/styled";
-import axios from "axios";
+import { useGetProductsQuery } from "@/slices/productsApiSlice.js";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,17 +49,9 @@ const TabCustom = styled(Tab)(({ theme }) => ({
 }));
 const BestSeller = () => {
   const [value, setValue] = useState(0);
-  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get("http://localhost:5000/api/products");
-      setProducts(data);
-    };
-    fetchProducts();
-  }, []);
+  const { data: products, isLoading, error } = useGetProductsQuery();
 
-  console.log(products);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -83,33 +75,39 @@ const BestSeller = () => {
             <TabCustom label="TOP RATES" {...a11yProps(2)} />
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-          <Grid container rowSpacing={2}>
-            {products.map((product, i) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                <ProductCard product={product} />
+        {isLoading ? (
+          <h2>loadin...</h2>
+        ) : (
+          <>
+            <CustomTabPanel value={value} index={0}>
+              <Grid container rowSpacing={2}>
+                {products.map((product, i) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                    <ProductCard product={product} />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <Grid container rowSpacing={2}>
-            {products.slice(0, 2).map((product, i) => (
-              <Grid item xs={3} key={i}>
-                <ProductCard product={product} />
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              <Grid container rowSpacing={2}>
+                {products.slice(0, 2).map((product, i) => (
+                  <Grid item xs={3} key={i}>
+                    <ProductCard product={product} />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <Grid container rowSpacing={2}>
-            {products.slice(0, 1).map((product, i) => (
-              <Grid item xs={3} key={i}>
-                <ProductCard product={product} />
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              <Grid container rowSpacing={2}>
+                {products.slice(0, 1).map((product, i) => (
+                  <Grid item xs={3} key={i}>
+                    <ProductCard product={product} />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </CustomTabPanel>
+            </CustomTabPanel>
+          </>
+        )}
       </Box>
     </Container>
   );

@@ -4,7 +4,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import theme from "../theme/theme.js";
 import Header from "@/components/Header";
-
+import { Provider } from "react-redux";
+import store from "@/store";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {
@@ -16,10 +17,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <ThemeProvider theme={theme}>
-        <body className={inter.className}>
-          <Header />
-          {children}
-        </body>
+        <Provider store={store}>
+          <body className={inter.className}>
+            <Header />
+            {children}
+          </body>
+        </Provider>
       </ThemeProvider>
     </html>
   );

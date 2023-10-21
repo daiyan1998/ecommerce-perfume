@@ -1,7 +1,6 @@
-import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import BestSellerProduct from "@/components/BestSellerProduct";
-import React from "react";
+import React, { useEffect } from "react";
 
 const HomeScreen = () => {
   return (

@@ -18,7 +18,7 @@ const IconButtonCustom = styled(IconButton)(({ theme }) => ({
 }));
 
 const ProductCard = ({ product }) => {
-  const { name, price, image } = product;
+  const { name, price, image, _id } = product;
   return (
     <Card
       sx={{
@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
         },
       }}
     >
-      <Link href={`/product/${name}`}>
+      <Link href={`/product/${_id}`}>
         <CardActionArea>
           <Box
             sx={{
