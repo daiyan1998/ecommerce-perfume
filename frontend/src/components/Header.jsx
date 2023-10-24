@@ -12,9 +12,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import NavLink from "./NavLink";
-import { FavoriteBorder, PersonOutline } from "@mui/icons-material";
+import { FavoriteBorder } from "@mui/icons-material";
 import CartDrawer from "./Shared/CartDrawer";
 import SigninModal from "../components/SigninModal";
 import { Container } from "@mui/material";
@@ -187,31 +186,11 @@ export default function Header() {
                 <FavoriteBorder />
               </Badge>
             </IconButton>
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <ShoppingCartOutlined />
-              </Badge>
-            </IconButton> */}
-            {/* Cart */}
+            {/* Cart Component*/}
             <CartDrawer />
 
             {/* Login Modal Component */}
             <SigninModal />
-            {/* <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <PersonOutline />
-            </IconButton> */}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -227,8 +206,8 @@ export default function Header() {
           </Box>
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu}
-      {renderMenu} */}
+      {renderMobileMenu}
+      {renderMenu}
     </Container>
   );
 }

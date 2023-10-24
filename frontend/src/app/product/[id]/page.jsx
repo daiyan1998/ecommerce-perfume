@@ -10,13 +10,15 @@ import { useParams } from "next/navigation";
 import { useGetProductDetailsQuery } from "@/slices/productsApiSlice";
 import Loader from "@/components/loader";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const PerfumeAmmout = () => {
-  const [ammount, setAmmount] = useState("");
-
+// PerfumeAmount component for selecting quantity.
+const PerfumeAmmout = ({ qty, setQty, price }) => {
+  // Handle quantity change.
   const handleChange = (event) => {
-    setAmmount(event.target.value);
+    setQty(event.target.value);
   };
+
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -24,25 +26,29 @@ const PerfumeAmmout = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={ammount}
+          value={qty}
           label="Qurantity"
           onChange={handleChange}
         >
-          <MenuItem value={10}>3ML</MenuItem>
-          <MenuItem value={20}>6ML</MenuItem>
-          <MenuItem value={30}>12ML</MenuItem>
+          {price.map(({ ml, price }) => (
+            <MenuItem key={ml} value={price}>
+              {ml}ML
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>
   );
 };
+
+// Page component.
 const page = () => {
+  const [qty, setQty] = useState("");
   const { id: productId } = useParams();
-  const {
-    data: product,
-    isLoading,
-    error,
-  } = useGetProductDetailsQuery(productId);
+
+  // Fetch product details based on the ID.
+  const { data: product, isLoading } = useGetProductDetailsQuery(productId);
+
   return (
     <Container sx={{ mt: 10 }}>
       {isLoading ? (
@@ -54,28 +60,48 @@ const page = () => {
               height={400}
               width={400}
               src={product.image}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "contain", width: "100%" }}
+              priority={false}
             />
           </Grid>
           <Grid item sm={6}>
             <Stack gap={2}>
-              <Typography variant="h3">{product.name}</Typography>
-              <Typography variant="h4" gutterBottom>
-                ৳ 440.00 - ৳ 1140.00
+              <Typography variant="h4">
+                {product.name} | ইলিট কাস্তারী আতর
               </Typography>
-              <PerfumeAmmout />
+              <Typography color="primary" variant="h5" gutterBottom>
+                440.00৳ - 1140.00৳
+              </Typography>
               <Typography>
-                Description : <br />
-                Exquisite rose attar with a rich floral aroma.
+                এতে আপনি কস্তুরির সাথে অন্যান্য নোটস ও পাবেন, যেটা ইউনিক,অন্য
+                কস্তুরি বেসড আতরের তুলনায়। একটু পর পর নিজের স্মেল প্রোফাইল চেঞ্জ
+                করে আমাদের এই কস্তুরি ইলিট। কখনো কস্তুরির মিষ্টি স্মেল, কখনো
+                হালকা ফ্লোরাল নোটস, কখনো স্মোকি নোটস। কস্তুরি বেসড সেমি অর্গানিক
+                আতরের মধ্যে এটি নির্দ্বিধায় অন্যতম সেরা। লঞ্জেভিটি অনেক ভালো,
+                প্রোজেকশন ও চমৎকার।
               </Typography>
-              <Typography variant="h4">৳0</Typography>
-              <Button variant="contained">Add To Cart</Button>
+              {/* PerfumeAmount component for selecting quantity. */}
+              <PerfumeAmmout
+                qty={qty}
+                setQty={setQty}
+                price={product.priceByMl}
+              />
+              <Typography variant="h4">{qty}৳</Typography>
+              <Button variant="contained" onClick={() => console.log(qty)}>
+                Add To Cart
+              </Button>
             </Stack>
           </Grid>
         </Grid>
       )}
     </Container>
   );
+};
+
+PerfumeAmmout.propTypes = {
+  qty: PropTypes.number,
+  setQty: PropTypes.number,
+  price: PropTypes.array,
 };
 
 export default page;

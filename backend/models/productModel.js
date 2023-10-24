@@ -57,10 +57,15 @@ const productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    price: {
-      type: Number,
+    priceByMl: [
+      {
+        ml: Number,
+        price: Number,
+      },
+    ],
+    priceRange: {
+      type: String,
       required: true,
-      default: 0,
     },
   },
   {

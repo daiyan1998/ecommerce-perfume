@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { Box, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import Link from "next/link";
+import MenuDrawer from "./MenuDrawer";
 
 const pages = [
   {
@@ -17,7 +18,7 @@ const pages = [
 ];
 
 export default function NavLink() {
-  const NavBox = styled(Box)(({ theme }) => ({
+  const NavBox = styled(Box)(() => ({
     position: "relative",
     "&:hover": {
       "& .showMenu": {
@@ -27,7 +28,7 @@ export default function NavLink() {
     },
   }));
 
-  const NavMenu = styled(Box)(({ theme }) => ({
+  const NavMenu = styled(Box)(() => ({
     position: "absolute",
     textAlign: "center",
     display: "none",
@@ -37,8 +38,15 @@ export default function NavLink() {
 
   return (
     <Box display="flex">
+      <Box display={{ md: "none", xs: "block" }}>
+        <MenuDrawer />
+      </Box>
       {pages.map(({ title, sub, navigate }) => (
-        <NavBox key={title} position="relative">
+        <NavBox
+          key={title}
+          position="relative"
+          sx={{ display: { md: "block", xs: "none" } }}
+        >
           <Link href={navigate ? navigate : ""}>
             <Button sx={{ color: "black", fontSize: "1rem", fontWeight: 500 }}>
               {title}

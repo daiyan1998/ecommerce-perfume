@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import ProductCard from "./Shared/ProductCard";
 import styled from "@emotion/styled";
 import { useGetProductsQuery } from "@/slices/productsApiSlice.js";
+import Loader from "./Loader";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -29,12 +30,6 @@ function CustomTabPanel(props) {
   );
 }
 
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -42,16 +37,15 @@ function a11yProps(index) {
   };
 }
 
-// My Custom
-const TabCustom = styled(Tab)(({ theme }) => ({
-  //   backgroundColor: "#F0AA38",
-  //   color: theme.palette.primary.main,
-}));
+// @desc  My Custom
+const TabCustom = styled(Tab)(() => ({}));
 const BestSeller = () => {
   const [value, setValue] = useState(0);
 
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  // @desc  Fetch Products
+  const { data: products, isLoading } = useGetProductsQuery();
 
+  // @desc  Tabs value change
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -76,13 +70,14 @@ const BestSeller = () => {
           </Tabs>
         </Box>
         {isLoading ? (
-          <h2>loadin...</h2>
+          <Loader />
         ) : (
           <>
             <CustomTabPanel value={value} index={0}>
               <Grid container rowSpacing={2}>
                 {products.map((product, i) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                    {/*desc ProductCard component */}
                     <ProductCard product={product} />
                   </Grid>
                 ))}
@@ -91,7 +86,8 @@ const BestSeller = () => {
             <CustomTabPanel value={value} index={1}>
               <Grid container rowSpacing={2}>
                 {products.slice(0, 2).map((product, i) => (
-                  <Grid item xs={3} key={i}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                    {/*desc ProductCard component */}
                     <ProductCard product={product} />
                   </Grid>
                 ))}
@@ -100,7 +96,8 @@ const BestSeller = () => {
             <CustomTabPanel value={value} index={2}>
               <Grid container rowSpacing={2}>
                 {products.slice(0, 1).map((product, i) => (
-                  <Grid item xs={3} key={i}>
+                  <Grid xs={12} sm={6} md={4} lg={3} key={i}>
+                    {/*desc ProductCard component */}
                     <ProductCard product={product} />
                   </Grid>
                 ))}
@@ -111,6 +108,12 @@ const BestSeller = () => {
       </Box>
     </Container>
   );
+};
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default BestSeller;
