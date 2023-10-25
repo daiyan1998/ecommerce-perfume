@@ -8,11 +8,16 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+import CartItem from "../CartItem";
 
 export default function CartDrawer() {
   const [state, setState] = React.useState({
     right: false,
   });
+
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log(cartItems);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -28,7 +33,7 @@ export default function CartDrawer() {
   const list = (anchor) => (
     <Box
       sx={{
-        width: { lg: 250, xs: "100%" },
+        width: { lg: 350, xs: "100%" },
         height: "calc(100% - 74px)",
       }}
       role="presentation"
@@ -44,18 +49,30 @@ export default function CartDrawer() {
         </IconButton>
       </Box>
       <Divider />
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        height="100%"
-      >
-        <Image src="/shopping-bag.svg" height={300} width={200} />
-        <Typography p={1} align="center">
-          Your shopping bag is empty. Start shopping
-        </Typography>
-      </Box>
+      {cartItems.length > 0 ? (
+        <Box>
+          {/* CartItem Component for items inside cart view */}
+          {cartItems.map((item) => (
+            <>
+              <CartItem key={item._id} item={item} />
+              <Divider />
+            </>
+          ))}
+        </Box>
+      ) : (
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          height="100%"
+        >
+          <Image src="/shopping-bag.svg" height={300} width={200} />
+          <Typography p={1} align="center">
+            Your shopping bag is empty. Start shopping
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 
@@ -69,7 +86,7 @@ export default function CartDrawer() {
           onClick={toggleDrawer("right", true)}
           variant="contained"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={cartItems.length} color="error">
             <ShoppingCartOutlined />
           </Badge>
         </IconButton>

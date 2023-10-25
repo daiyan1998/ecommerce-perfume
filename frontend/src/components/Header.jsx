@@ -189,7 +189,7 @@ export default function Header() {
             {/* Cart Component*/}
             <CartDrawer />
 
-            {/* Login Modal Component */}
+            {/* Signin Modal Component */}
             <SigninModal />
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

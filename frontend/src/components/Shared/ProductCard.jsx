@@ -16,9 +16,10 @@ import Link from "next/link";
 const ProductCard = ({ product }) => {
   const { name, priceRange, image, _id } = product;
   const [overLay, setOverlay] = useState(false);
+
+  // @desc  add overlay animation to card
   const toggleoverlay = () => {
     setOverlay(!overLay);
-    console.log(overLay);
   };
 
   const OverlayQTY = () => {

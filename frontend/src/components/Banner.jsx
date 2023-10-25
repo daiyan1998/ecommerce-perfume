@@ -3,9 +3,9 @@ import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 
 const imgURL =
-  "https://images.unsplash.com/photo-1617661338085-d1ec6a89a6d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80";
+  "https://images.unsplash.com/photo-1627933234009-0f5ce6eb4e3a?auto=format&fit=crop&q=80&w=1925&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
-const Background = styled("div")(({ theme }) => ({
+const Background = styled("div")(() => ({
   backgroundImage: `url(${imgURL})`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
