@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import ProductCard from "./Shared/ProductCard";
 import styled from "@emotion/styled";
 import { useGetProductsQuery } from "@/slices/productsApiSlice.js";
-import Loader from "./Loader";
+import Loading from "./Loading";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,14 +43,14 @@ const BestSeller = () => {
   const [value, setValue] = useState(0);
 
   // @desc  Fetch Products
-  const { data: products, isLoading } = useGetProductsQuery();
+  const { data: products, isLoading, error } = useGetProductsQuery();
 
   // @desc  Tabs value change
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <Container>
+    <Box>
       <CssBaseline />
       <Typography variant="h4" align="center" mt={10} mb={5}>
         Our Best Seller
@@ -70,7 +70,9 @@ const BestSeller = () => {
           </Tabs>
         </Box>
         {isLoading ? (
-          <Loader />
+          <Loading />
+        ) : error ? (
+          <h1>{error.message}</h1>
         ) : (
           <>
             <CustomTabPanel value={value} index={0}>
@@ -106,7 +108,7 @@ const BestSeller = () => {
           </>
         )}
       </Box>
-    </Container>
+    </Box>
   );
 };
 

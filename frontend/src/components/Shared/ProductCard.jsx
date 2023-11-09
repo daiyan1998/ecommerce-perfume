@@ -15,11 +15,11 @@ import Link from "next/link";
 
 const ProductCard = ({ product }) => {
   const { name, priceRange, image, _id } = product;
-  const [overLay, setOverlay] = useState(false);
+  const [addToCartOverLay, setAddToCartOverlay] = useState(false);
 
   // @desc  add overlay animation to card
   const toggleoverlay = () => {
-    setOverlay(!overLay);
+    setAddToCartOverlay(!addToCartOverLay);
   };
 
   const OverlayQTY = () => {
@@ -28,8 +28,7 @@ const ProductCard = ({ product }) => {
         sx={{
           position: "relative",
           transition: "0.2s ease-in",
-          background: "white",
-          zIndex: "10",
+          zIndex: "50",
         }}
       >
         <IconButton
@@ -42,14 +41,14 @@ const ProductCard = ({ product }) => {
         >
           <Close />
         </IconButton>
-        <Box
+        <Button
           sx={{
             position: "absolute",
             bottom: "0",
           }}
         >
           Add To Cart
-        </Box>
+        </Button>
       </Box>
     );
   };
@@ -86,7 +85,7 @@ const ProductCard = ({ product }) => {
             />
           </CardActionArea>
         </Link>
-        {!overLay && (
+        {!addToCartOverLay && (
           <>
             <Box
               className="overLay"
@@ -127,11 +126,13 @@ const ProductCard = ({ product }) => {
             </Button>
           </>
         )}
-        {overLay && (
+        {addToCartOverLay && (
           <Box
             sx={{
               position: "absolute",
-              top: 0,
+              backgroundColor: "white",
+              height: `${addToCartOverLay ? "100%" : "0%"}`,
+              transition: "0.2s ease-out",
               left: 0,
               right: 0,
               bottom: 0,

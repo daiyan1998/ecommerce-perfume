@@ -1,6 +1,6 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 
-const Loader = () => {
+const Loading = () => {
   return (
     <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -11,4 +11,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Loading;

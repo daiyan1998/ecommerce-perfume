@@ -1,5 +1,5 @@
 "use client";
-import { ThemeProvider } from "@mui/material";
+import { Container, ThemeProvider } from "@mui/material";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import theme from "../theme/theme.js";
@@ -19,8 +19,10 @@ export default function RootLayout({ children }) {
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <body className={inter.className}>
-            <Header />
-            {children}
+            <Container>
+              <Header />
+              {children}
+            </Container>
           </body>
         </Provider>
       </ThemeProvider>

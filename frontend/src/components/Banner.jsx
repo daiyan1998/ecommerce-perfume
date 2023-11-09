@@ -1,25 +1,27 @@
 import styled from "@emotion/styled";
 import { Button, Container, Typography } from "@mui/material";
 import React from "react";
+import PropTypes from "prop-types";
 
-const imgURL =
-  "https://images.unsplash.com/photo-1627933234009-0f5ce6eb4e3a?auto=format&fit=crop&q=80&w=1925&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+const Banner = (props) => {
+  Banner.propTypes = {
+    imgUrl: PropTypes.string,
+  };
+  const Background = styled("div")(() => ({
+    backgroundImage: `url(${props.imgUrl})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundColor: "red",
+    height: "500px",
+    width: "auto",
+    objectFit: "contain",
+    color: "white",
+    display: "flex",
+    alignItems: "center",
+    margin: "2rem auto",
+  }));
 
-const Background = styled("div")(() => ({
-  backgroundImage: `url(${imgURL})`,
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center",
-  backgroundColor: "red",
-  height: "800px",
-  width: "100%",
-  objectFit: "contain",
-  color: "white",
-  display: "flex",
-  alignItems: "center",
-}));
-
-const Banner = () => {
   return (
     <Background>
       <Container

@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import MenuDrawer from "./MenuDrawer";
@@ -48,11 +48,18 @@ export default function NavLink() {
           sx={{ display: { md: "block", xs: "none" } }}
         >
           <Link href={navigate ? navigate : ""}>
-            <Button sx={{ color: "black", fontSize: "1rem", fontWeight: 500 }}>
+            <Button
+              variant="text"
+              sx={{
+                color: "black",
+                fontSize: "1rem",
+                fontWeight: 300,
+              }}
+            >
               {title}
             </Button>
           </Link>
-          <NavMenu className="showMenu" bgcolor="white">
+          {/* <NavMenu className="showMenu" bgcolor="white">
             {sub?.map((s) => {
               return (
                 <Typography
@@ -73,7 +80,7 @@ export default function NavLink() {
                 </Typography>
               );
             })}
-          </NavMenu>
+          </NavMenu> */}
         </NavBox>
       ))}
     </Box>

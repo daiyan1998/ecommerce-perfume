@@ -157,7 +157,7 @@ export default function Header() {
   );
 
   return (
-    <Container sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar
         variant="none"
         sx={{ bgcolor: "white", color: "black" }}
@@ -208,6 +208,6 @@ export default function Header() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Container>
+    </Box>
   );
 }
