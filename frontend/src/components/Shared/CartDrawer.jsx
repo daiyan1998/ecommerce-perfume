@@ -100,7 +100,7 @@ export default function CartDrawer() {
               {itemsPrice}৳
             </Typography>
           </Stack>
-          <Link href="/cart">
+          <Link href="/process">
             <Button
               variant="outlined"
               fullWidth
