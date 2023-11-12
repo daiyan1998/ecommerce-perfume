@@ -9,14 +9,9 @@ const nextConfig = {
       },
     ],
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/api/:path*",
-  //       destination: `${API_URL}/:path*`,
-  //     },
-  //   ];
-  // },
+  experimental: {
+    reactRoot: true,
+  },
 };
 
 module.exports = nextConfig;

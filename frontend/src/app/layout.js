@@ -6,6 +6,7 @@ import theme from "../theme/theme.js";
 import Header from "@/components/Header";
 import { Provider } from "react-redux";
 import store from "@/store";
+import React from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {
@@ -15,15 +16,17 @@ const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <body className={inter.className}>
-            <Header />
-            {children}
-          </body>
-        </Provider>
-      </ThemeProvider>
-    </html>
+    <React.StrictMode>
+      <html lang="en">
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <body className={inter.className}>
+              <Header />
+              {children}
+            </body>
+          </Provider>
+        </ThemeProvider>
+      </html>
+    </React.StrictMode>
   );
 }
