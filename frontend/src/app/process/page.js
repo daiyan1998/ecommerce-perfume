@@ -1,7 +1,12 @@
+import CartScreen from "@/screens/CartScreen";
 import React from "react";
 
 const page = () => {
-  return <div>process</div>;
+  return (
+    <>
+      <CartScreen />
+    </>
+  );
 };
 
 export default page;

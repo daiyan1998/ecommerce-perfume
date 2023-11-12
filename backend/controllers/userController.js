@@ -1,5 +1,5 @@
-import asyncHandler from "./../middleware/asyncHandler";
-import User from "./../models/userModel";
+import asyncHandler from "./../middleware/asyncHandler.js";
+import User from "./../models/userModel.js";
 
 // @desc    Auth user & get token
 // @route   POST api/users/login

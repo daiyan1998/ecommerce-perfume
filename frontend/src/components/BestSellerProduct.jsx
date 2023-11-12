@@ -1,5 +1,5 @@
 "use client";
-import { Container, CssBaseline, Grid, Typography } from "@mui/material";
+import { CssBaseline, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -98,7 +98,7 @@ const BestSeller = () => {
             <CustomTabPanel value={value} index={2}>
               <Grid container rowSpacing={2}>
                 {products.slice(0, 1).map((product, i) => (
-                  <Grid xs={12} sm={6} md={4} lg={3} key={i}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
                     {/*desc ProductCard component */}
                     <ProductCard product={product} />
                   </Grid>

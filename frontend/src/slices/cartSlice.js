@@ -1,6 +1,16 @@
 import { updateCart } from "@/utils/cartUtils";
 import { createSlice } from "@reduxjs/toolkit";
 
+// const getInitialState = () => {
+//   if (typeof window !== "undefined") {
+//     const storedCart = localStorage.getItem("cart");
+//     return storedCart ? JSON.parse(storedCart) : { cartItems: [] };
+//   } else {
+//     return { cartItems: [] };
+//   }
+// };
+// const initialState = getInitialState();
+
 const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : { cartItems: [] };
@@ -15,7 +25,6 @@ const cartSlice = createSlice({
       const existItem = state.cartItems.find(
         (x) => x._id === item._id && x.ml === item.ml
       );
-      console.log(existItem);
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
           (x._id === existItem._id) & (x.ml === existItem.ml) ? item : x
@@ -23,11 +32,11 @@ const cartSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, item];
       }
-      console.log(state.cartItems);
 
       return updateCart(state);
     },
     removeFromCart: (state, action) => {
+      console.log(action.payload);
       state.cartItems = state.cartItems.filter(
         (x) => x._id !== action.payload._id && x.ml !== action.payload.ml
       );

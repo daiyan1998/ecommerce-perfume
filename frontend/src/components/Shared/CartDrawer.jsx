@@ -65,10 +65,10 @@ export default function CartDrawer() {
           <Box display="flex" flexDirection="column">
             {/* CartItem Component for items inside cart view */}
             {cartItems.map((item) => (
-              <>
-                <CartItem key={item._id} item={item} />
+              <div key={item._id}>
+                <CartItem item={item} />
                 <Divider />
-              </>
+              </div>
             ))}
           </Box>
         ) : (

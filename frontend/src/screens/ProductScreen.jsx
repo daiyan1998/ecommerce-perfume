@@ -81,6 +81,7 @@ const ProductScreen = () => {
             style={{ objectFit: "contain", width: "100%" }}
             priority={false}
             alt="perfume bottle"
+            loading="lazy"
           />
         </Grid>
         <Grid item sm={6}>

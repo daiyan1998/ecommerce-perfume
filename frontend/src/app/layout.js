@@ -19,10 +19,8 @@ export default function RootLayout({ children }) {
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <body className={inter.className}>
-            <Container>
-              <Header />
-              {children}
-            </Container>
+            <Header />
+            {children}
           </body>
         </Provider>
       </ThemeProvider>

@@ -157,57 +157,59 @@ export default function Header() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        variant="none"
-        sx={{ bgcolor: "white", color: "black" }}
-        position="static"
-      >
-        <Toolbar>
-          {/* NavLink Component */}
-          <NavLink />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: "flex" }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <FavoriteBorder />
-              </Badge>
-            </IconButton>
-            {/* Cart Component*/}
-            <CartDrawer />
+    <Container>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          variant="none"
+          sx={{ bgcolor: "white", color: "black" }}
+          position="static"
+        >
+          <Toolbar>
+            {/* NavLink Component */}
+            <NavLink />
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: "flex" }}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge badgeContent={4} color="error">
+                  <FavoriteBorder />
+                </Badge>
+              </IconButton>
+              {/* Cart Component*/}
+              <CartDrawer />
 
-            {/* Signin Modal Component */}
-            <SigninModal />
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              {/* <MoreIcon /> */}
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+              {/* Signin Modal Component */}
+              <SigninModal />
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                {/* <MoreIcon /> */}
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+    </Container>
   );
 }

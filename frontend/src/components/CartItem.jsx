@@ -7,11 +7,10 @@ import { useDispatch } from "react-redux";
 
 const CartItem = ({ item }) => {
   const { _id, image, name, price, qty, ml } = item;
-  console.log(item);
 
   const dispatch = useDispatch();
 
-  const removeFromCartHandler = async (id, ml) => {
+  const removeFromCartHandler = (id, ml) => {
     dispatch(removeFromCart({ id, ml }));
   };
   return (

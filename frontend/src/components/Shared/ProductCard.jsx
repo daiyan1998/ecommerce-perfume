@@ -144,7 +144,7 @@ const ProductCard = ({ product }) => {
       </Box>
       <CardContent sx={{ textAlign: "center" }}>
         <Typography color="secondary.">{name}</Typography>
-        <Typography fontSize={20} sx={{ fontWeight: "700" }} gutterBottom={2}>
+        <Typography fontSize={20} sx={{ fontWeight: "700" }} gutterBottom>
           {priceRange}৳
         </Typography>
         <Typography></Typography>
