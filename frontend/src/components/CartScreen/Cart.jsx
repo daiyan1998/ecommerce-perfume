@@ -21,10 +21,27 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import Image from "next/image";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { use, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeItemCount } from "@/slices/cartSlice";
 
-const CartItem = ({ cartItem }) => {
+const CartItemCheckout = ({ cartItem }) => {
+  const [qty, SetQty] = useState(cartItem.qty);
+  const dispatch = useDispatch();
+
+  const increase = () => {
+    SetQty(qty + 1);
+  };
+
+  const decrease = () => {
+    if (qty === 1) return qty;
+    SetQty(qty - 1);
+  };
+
+  // useEffect to handle state updates after render
+  useEffect(() => {
+    dispatch(changeItemCount({ ...cartItem, qty }));
+  }, [qty]);
   return (
     <Paper
       sx={{
@@ -61,11 +78,13 @@ const CartItem = ({ cartItem }) => {
             </Grid>
             <Grid item>
               <Stack direction="row">
-                <Button variant="contained">
+                <Button onClick={decrease} variant="contained">
                   <Remove />
                 </Button>
-                <Box p={1}>1</Box>
-                <Button variant="contained">
+                <Box p={1} width="2rem">
+                  {qty}
+                </Box>
+                <Button onClick={increase} variant="contained">
                   <Add />
                 </Button>
               </Stack>
@@ -80,13 +99,13 @@ const CartItem = ({ cartItem }) => {
   );
 };
 
-const SideBar = () => {
+const SideBar = ({ itemsPrice }) => {
   return (
     <Paper sx={{ p: 2 }}>
       <Stack direction="row" justifyContent="space-between">
         <Typography color={grey[500]}>Total : </Typography>
         <Typography fontWeight={600} fontSize={20}>
-          $345
+          {itemsPrice}
         </Typography>
       </Stack>
       <Divider sx={{ my: 3 }} />
@@ -140,19 +159,18 @@ const SideBar = () => {
 
 const Cart = () => {
   const { cartItems, itemsPrice } = useSelector((state) => state.cart);
-  console.log(cartItems);
   return (
     <Container sx={{ py: 5 }}>
       <Grid container spacing={2}>
         <Grid item md={8} xs={12}>
           <Stack direction={{ sm: "column" }} gap={2}>
             {cartItems.map((cartItem) => (
-              <CartItem key={cartItem._id} cartItem={cartItem} />
+              <CartItemCheckout key={cartItem._id} cartItem={cartItem} />
             ))}
           </Stack>
         </Grid>
         <Grid item md={4} xs={12}>
-          <SideBar />
+          <SideBar itemsPrice={itemsPrice} />
         </Grid>
       </Grid>
     </Container>

@@ -36,16 +36,26 @@ const cartSlice = createSlice({
       return updateCart(state);
     },
     removeFromCart: (state, action) => {
-      console.log(action.payload);
       state.cartItems = state.cartItems.filter(
         (x) => x._id !== action.payload._id && x.ml !== action.payload.ml
       );
 
       return updateCart(state);
     },
+
+    changeItemCount: (state, action) => {
+      const item = action.payload;
+
+      state.cartItems = state.cartItems.map((x) => {
+        if (x.cartUniqueId === item.cartUniqueId) return item;
+        return x;
+      });
+
+      return updateCart(state);
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, changeItemCount } = cartSlice.actions;
 
 export default cartSlice.reducer;

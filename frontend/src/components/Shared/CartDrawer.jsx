@@ -63,8 +63,8 @@ export default function CartDrawer() {
         {cartItems.length > 0 ? (
           <Box display="flex" flexDirection="column">
             {/* CartItem Component for items inside cart view */}
-            {cartItems.map((item) => (
-              <div key={item._id}>
+            {cartItems.map((item, i) => (
+              <div key={`${item._id}${i}`}>
                 <CartItem item={item} />
                 <Divider />
               </div>
@@ -99,7 +99,7 @@ export default function CartDrawer() {
               {itemsPrice}৳
             </Typography>
           </Stack>
-          <Link href="/process">
+          <Link href="/cart">
             <Button
               variant="outlined"
               fullWidth

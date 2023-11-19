@@ -32,7 +32,6 @@ const ProductScreen = () => {
   // @desc Use state to track the input value.
   const [qty, setQty] = useState(1);
   const { id: productId } = useParams();
-  console.log(ml, qty);
 
   // @desc Fetch product details based on the ID.
   const {
@@ -59,7 +58,8 @@ const ProductScreen = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty, price, ml }));
+    let cartUniqueId = `${product._id}-${ml}`;
+    dispatch(addToCart({ ...product, qty, price, ml, cartUniqueId }));
   };
 
   if (isLoading) {
