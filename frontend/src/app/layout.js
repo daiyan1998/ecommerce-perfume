@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import { Provider } from "react-redux";
 import store from "@/store";
 import React from "react";
+import SimpleBottomNavigation from "@/components/Shared/SimpleBottomNavigation";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata = {

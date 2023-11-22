@@ -6,12 +6,12 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ item }) => {
-  const { _id, image, name, price, qty, ml } = item;
+  const { _id, image, name, price, qty, ml,cartUniqueId } = item;
 
   const dispatch = useDispatch();
 
-  const removeFromCartHandler = (id, ml) => {
-    dispatch(removeFromCart({ id, ml }));
+  const removeFromCartHandler = (cartUniqueId) => {
+    dispatch(removeFromCart({cartUniqueId}));
   };
   return (
     <Stack flexDirection="row" p={1}>
@@ -27,7 +27,7 @@ const CartItem = ({ item }) => {
         </Typography>
       </Box>
       <div>
-        <IconButton onClick={() => removeFromCartHandler(_id, ml)}>
+        <IconButton onClick={() => removeFromCartHandler(cartUniqueId)}>
           <CloseOutlined />
         </IconButton>
       </div>
