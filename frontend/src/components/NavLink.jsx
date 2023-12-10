@@ -13,6 +13,7 @@ const pages = [
   {
     title: "Shop",
     sub: ["Shop1", "shop2"],
+    navigate: "/shop",
   },
   { title: "Blogs", sub: ["Blogs1"] },
 ];

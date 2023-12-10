@@ -157,13 +157,13 @@ export default function Header() {
   );
 
   return (
-    <Container>
-      <Box sx={{ flexGrow: 1 }}>
+    <>
         <AppBar
           variant="none"
           sx={{ bgcolor: "white", color: "black" }}
-          position="static"
+          position="sticky"
         >
+          <Container>
           <Toolbar>
             {/* NavLink Component */}
             <NavLink />
@@ -206,10 +206,11 @@ export default function Header() {
               </IconButton>
             </Box>
           </Toolbar>
+
+          </Container>
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
-      </Box>
-    </Container>
+    </>
   );
 }

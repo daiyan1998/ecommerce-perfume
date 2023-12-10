@@ -25,7 +25,7 @@ import React, { use, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeItemCount, removeFromCart } from "@/slices/cartSlice";
 import Link from "next/link";
-import CheckoutSteps from "@/components/CheckoutSteps";
+import SimpleCheckoutSteps from "@/components/SimpleCheckoutSteps";
 
 const CartItemCheckout = ({ cartItem }) => {
   const [qty, SetQty] = useState(cartItem.qty);
@@ -57,13 +57,13 @@ const CartItemCheckout = ({ cartItem }) => {
     >
       <Grid container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
+          <ButtonBase sx={{ width:{xs:250,sm:150}, height:{xs:300,sm:100} }}>
             <Image
               alt="complex"
               src={cartItem.image}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "cover" }}
             />
           </ButtonBase>
         </Grid>
@@ -119,7 +119,7 @@ const SideBar = ({ itemsPrice }) => {
       </Stack>
       <Divider sx={{ my: 3 }} />
       <Stack gap={2}>
-        <Typography>Additional Commenct</Typography>
+        <Typography>Additional Comment</Typography>
         <TextField id="filled-multiline-static" multiline rows={4} fullWidth />
         <TextField
           id="outlined-password-input"
@@ -173,7 +173,7 @@ const CartScreen = () => {
   return (
     <>
       <Box bgcolor="#F6F9FC">
-        <CheckoutSteps step1/>
+        <SimpleCheckoutSteps step1/>
         <Container sx={{ py: 5 }}>
           <Grid container spacing={2}>
             <Grid item md={8} xs={12}>

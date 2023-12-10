@@ -22,9 +22,9 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Box>{children}</Box>
-        </Box>
+        <Grid container p={3} gap={3} justifyContent="center">
+          {children}
+        </Grid>
       )}
     </div>
   );
@@ -76,34 +76,28 @@ const BestSeller = () => {
         ) : (
           <>
             <CustomTabPanel value={value} index={0}>
-              <Grid container rowSpacing={2}>
-                {products.map((product, i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                    {/*desc ProductCard component */}
-                    <ProductCard product={product} />
-                  </Grid>
-                ))}
-              </Grid>
+              {products.map((product, i) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                  {/*desc ProductCard component */}
+                  <ProductCard product={product} />
+                </Grid>
+              ))}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              <Grid container rowSpacing={2}>
-                {products.slice(0, 2).map((product, i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                    {/*desc ProductCard component */}
-                    <ProductCard product={product} />
-                  </Grid>
-                ))}
-              </Grid>
+              {products.slice(0, 2).map((product, i) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                  {/*desc ProductCard component */}
+                  <ProductCard product={product} />
+                </Grid>
+              ))}
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-              <Grid container rowSpacing={2}>
-                {products.slice(0, 1).map((product, i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                    {/*desc ProductCard component */}
-                    <ProductCard product={product} />
-                  </Grid>
-                ))}
-              </Grid>
+              {products.slice(0, 1).map((product, i) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                  {/*desc ProductCard component */}
+                  <ProductCard product={product} />
+                </Grid>
+              ))}
             </CustomTabPanel>
           </>
         )}

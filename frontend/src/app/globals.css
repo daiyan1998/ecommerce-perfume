@@ -3,3 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.swiper-button-next::after{
+  /* height: 1rem; */
+  background-color: black;
+  padding: 1rem;
+  color: white;
+}
+
+.swiper-button-prev::after{
+  /* height: 1rem; */
+  background-color: black;
+  padding: 1rem;
+  color: white;
+}

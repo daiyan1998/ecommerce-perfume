@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
   return (
     <Card
       sx={{
-        maxWidth: 245,
+        // maxWidth: 245,
         ":hover": {
           // boxShadow: "0px 3px 5px black",
         },
@@ -76,14 +76,12 @@ const ProductCard = ({ product }) => {
         }}
       >
         <Link href={`/product/${_id}`}>
-          <CardActionArea>
             <CardMedia
               sx={{
                 height: 250,
               }}
               image={image}
             />
-          </CardActionArea>
         </Link>
         {!addToCartOverLay && (
           <>
@@ -105,7 +103,7 @@ const ProductCard = ({ product }) => {
               <SearchOutlined />
               <FavoriteBorder />
             </Box>
-            <Button
+            {/* <Button
               className="overLayButton"
               sx={{
                 position: "absolute",
@@ -123,7 +121,7 @@ const ProductCard = ({ product }) => {
               onClick={toggleoverlay}
             >
               Add To Cart
-            </Button>
+            </Button> */}
           </>
         )}
         {addToCartOverLay && (
@@ -138,7 +136,7 @@ const ProductCard = ({ product }) => {
               bottom: 0,
             }}
           >
-            <OverlayQTY />
+            {/* <OverlayQTY /> */}
           </Box>
         )}
       </Box>
@@ -148,7 +146,7 @@ const ProductCard = ({ product }) => {
           {priceRange}৳
         </Typography>
         <Typography></Typography>
-        {/* <Button
+        <Button
           variant="outlined"
           color="secondary"
           fullWidth
@@ -159,8 +157,8 @@ const ProductCard = ({ product }) => {
             },
           }}
         >
-          Add To Cart
-        </Button> */}
+          View More
+        </Button>
       </CardContent>
     </Card>
   );

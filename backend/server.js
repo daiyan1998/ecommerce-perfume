@@ -6,12 +6,18 @@ import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import producRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import bodyParser from "body-parser";
 const port = process.env.PORT || 5000;
 
 connectDB(); // connect to MongoDB
 
 const app = express();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json  
+app.use(bodyParser.json())
 app.use(cors());
+
 
 app.get("/", (req, res) => {
   res.send("API is running...");

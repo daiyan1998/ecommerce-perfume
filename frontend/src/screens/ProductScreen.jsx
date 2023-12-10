@@ -26,7 +26,7 @@ import ProductDesc from "@/components/productScreen/ProductDesc";
 const ProductScreen = () => {
   const [price, setPrice] = useState("");
   const [ml, setMl] = useState(null);
-
+ 
   const dispatch = useDispatch();
 
   // @desc Use state to track the input value.
@@ -119,7 +119,7 @@ const ProductScreen = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Typography variant="h4">{price}৳</Typography>
+            <Typography variant="h4">৳{price || 0}</Typography>
             <Box display="flex" gap={2}>
               <ButtonGroup>
                 <Button

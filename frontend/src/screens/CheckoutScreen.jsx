@@ -1,8 +1,9 @@
 'use client'
-import CheckoutSteps from "@/components/CheckoutSteps";
-import { Container, Divider, FormControl, Grid, Stack, TextField, Typography } from "@mui/material";
+import SimpleCheckoutSteps from "@/components/SimpleCheckoutSteps";
+import { Container, Divider, FormControl, FormControlLabel, Grid, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 
 const CheckoutScreen = () => {
   const {cartItems,itemsPrice} = useSelector((state) => state.cart)
@@ -12,7 +13,7 @@ const CheckoutScreen = () => {
 
   }
   return <>
-    <CheckoutSteps step1 step2/>
+    <SimpleCheckoutSteps step1 step2/>
     <Container>
     <Grid container spacing={3}>
       <Grid item md={6} xs={12}>
@@ -29,13 +30,8 @@ const CheckoutScreen = () => {
       <Grid item md={6} xs={12}>
         <Typography fontSize={30} my={5}>Your Order</Typography>
         <Stack gap={2}>
-          <Stack justifyContent='space-between' direction='row'>
-            <Typography fontSize={30}>PRODUCT</Typography>
-            <Typography fontSize={30}>SUBTOTAL</Typography>
-          </Stack>
-          <Divider/>
           {cartItems.map( item => (
-          <Stack justifyContent='space-between' direction='row'>
+          <Stack key={item.cartUniqueId} justifyContent='space-between' direction='row'>
             <Typography>{item.name} - {item.ml}ml x {item.qty}</Typography>
             <Typography>৳{item.price * item.qty}</Typography>
           </Stack>
@@ -47,8 +43,34 @@ const CheckoutScreen = () => {
           </Stack>
           <Divider/>
           <Stack justifyContent='space-between' direction='row'>
-            <Typography>Product</Typography>
-            <Typography>Subtotal</Typography>
+            <Typography>Shipping</Typography>
+             <FormControl fullWidth sx={{flexDirection:'row-reverse'}}>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue={60}
+            name="radio-buttons-group"
+            // sx={{flexDirection:'row-reverse'}}
+          >
+            <FormControlLabel
+            labelPlacement="start"
+              value={60}
+              control={<Radio />}
+              label={<div>Inside Dhaka : <Typography sx={{display:'inline'}} color='primary'>৳60</Typography></div>}
+            />
+            <FormControlLabel
+            labelPlacement="start"
+              value={100}
+              control={<Radio />}
+              label={<div>Sub Dhaka : <Typography sx={{display:'inline'}} color='primary'>৳100</Typography></div>}
+            />
+            <FormControlLabel
+            labelPlacement="start"
+              value={120}
+              control={<Radio />}
+              label={<div>Outside Dhaka : <Typography sx={{display:'inline'}} color='primary'>৳120</Typography></div>}
+            />
+          </RadioGroup>
+        </FormControl>
           </Stack>
           <Divider/>
           <Stack justifyContent='space-between' direction='row'>

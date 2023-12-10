@@ -19,11 +19,14 @@ const CartItem = ({ item }) => {
         <Image src={image} height={70} width={70} alt="perfume" />
       </Box>
       <Box flexGrow={1} px={1}>
-        <Typography>
+        <Typography variant="body1" fontWeight={400}>
           {name} - {ml}ML
         </Typography>
-        <Typography>
-          {price} × {qty}
+        <Typography variant="caption">
+          ৳{price} × {qty}
+        </Typography>
+        <Typography variant="body2" color='primary'>
+          ৳{price*qty}
         </Typography>
       </Box>
       <div>

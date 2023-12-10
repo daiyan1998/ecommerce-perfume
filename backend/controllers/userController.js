@@ -1,18 +1,49 @@
 import asyncHandler from "./../middleware/asyncHandler.js";
 import User from "./../models/userModel.js";
+import  bcryptjs  from 'bcryptjs';
 
 // @desc    Auth user & get token
 // @route   POST api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-  res.send("auth user");
+  try {
+    res.send("auth user");
+  } catch (error) {
+    res.send({message: "Login error", error: error.message});
+  }
 });
 
 // @desc    Register user
 // @route   POST api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  res.send("register user");
+  try {
+    const { name,email,password} = req.body 
+    console.log(email);
+    const user = await User.findOne({email})
+    if (user) {
+      return res.status(400).send({message: "User already exists"})
+    }
+
+    // Hash password
+    const salt = await bcryptjs.genSalt(10)
+    const hasedPassword = await bcryptjs.hash(password,salt)
+
+    // Create User 
+    const newUser = new User({
+      name,
+      email,
+      password: hasedPassword
+    })
+
+    const savedUser = await newUser.save()
+
+
+    res.send({message: "User created successfully",success: true, savedUser})
+
+  } catch (error) {
+    res.status(400).send({message: "Sign up error", error: error.message});
+  }
 });
 
 // @desc    Logout user / clear cookie

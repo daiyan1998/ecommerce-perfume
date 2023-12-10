@@ -2,7 +2,7 @@ import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
 
-export default function CheckoutSteps({ step1, step2, step3, step4 }) {
+export default function SimpleCheckoutSteps({ step1, step2, step3, step4 }) {
   return (
     <Container sx={{py:5,}}>
       <Stack direction='row' justifyContent='center' gap={3}>

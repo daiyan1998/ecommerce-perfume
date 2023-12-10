@@ -1,14 +1,21 @@
 "use client";
 import { Container, ThemeProvider } from "@mui/material";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import theme from "../theme/theme.js";
 import Header from "@/components/Header";
 import { Provider } from "react-redux";
 import store from "@/store";
 import React from "react";
-import SimpleBottomNavigation from "@/components/Shared/SimpleBottomNavigation";
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
+
+const roboto = Roboto({
+  weight: ['300','400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const metadata = {
   title: "Create Next App",
@@ -21,7 +28,8 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <body className={inter.className}>
+            <body className={roboto.className}>
+              <Toaster/>
               <Header />
               {children}
             </body>
