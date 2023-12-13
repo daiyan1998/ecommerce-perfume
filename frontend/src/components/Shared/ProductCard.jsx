@@ -9,11 +9,12 @@ import {
   CardContent,
   CardMedia,
   IconButton,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product,isLoading }) => {
   const { name, priceRange, image, _id } = product;
   const [addToCartOverLay, setAddToCartOverlay] = useState(false);
 
@@ -52,6 +53,18 @@ const ProductCard = ({ product }) => {
       </Box>
     );
   };
+
+  // if(isLoading) {
+  //   return (
+  //     <Card>
+  //       <Skeleton variant="rect" height={200} />
+  //       <CardContent>
+  //         <Skeleton />
+  //         <Skeleton width="60%" />
+  //       </CardContent>
+  //     </Card>
+  //   )
+  // }
   return (
     <Card
       sx={{
@@ -76,12 +89,16 @@ const ProductCard = ({ product }) => {
         }}
       >
         <Link href={`/product/${_id}`}>
+          {isLoading? (
+            <Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />
+          ) : (
             <CardMedia
               sx={{
                 height: 250,
               }}
               image={image}
             />
+          )}
         </Link>
         {!addToCartOverLay && (
           <>
@@ -141,10 +158,18 @@ const ProductCard = ({ product }) => {
         )}
       </Box>
       <CardContent sx={{ textAlign: "center" }}>
+        {isLoading? (
+          <Skeleton animation='wave'/>
+        ):(
         <Typography color="secondary.">{name}</Typography>
+        )}
+        {isLoading? (
+          <Skeleton animation='wave'/>
+        ) : (
         <Typography fontSize={20} sx={{ fontWeight: "700" }} gutterBottom>
           {priceRange}৳
         </Typography>
+        )}
         <Typography></Typography>
         <Button
           variant="outlined"

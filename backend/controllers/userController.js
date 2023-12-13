@@ -1,15 +1,43 @@
 import asyncHandler from "./../middleware/asyncHandler.js";
 import User from "./../models/userModel.js";
 import  bcryptjs  from 'bcryptjs';
+import jwt from 'jsonwebtoken'
 
-// @desc    Auth user & get token
+// @desc    Login user & get token
 // @route   POST api/users/login
 // @access  Public
-const authUser = asyncHandler(async (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
   try {
-    res.send("auth user");
+    const {email,password} = req.body 
+    const user = await User.findOne({email})
+
+    if(!user) {
+      res.status(400).send({message:'Invalid user or password'})
+    }
+
+    const passCheck = await bcryptjs.compare(password,user.password);
+    if(!passCheck) {
+      res.status(400).send({message:'Invalid user or password'})
+    }
+
+    // create token data
+    const tokenData = {
+      id: user._id,
+      name: user.name,
+      email: user.email
+
+    }
+
+    // crete token
+    const token = jwt.sign(tokenData,process.env.TOKEN_SECRET,{expiresIn: "1h"})
+
+    res.cookie('token', token, {
+      httpOnly: true,
+    })
+
+    res.send({message:'Login successful'})
   } catch (error) {
-    res.send({message: "Login error", error: error.message});
+    res.status(400).send({message: "Login error", error: error.message});
   }
 });
 
@@ -19,7 +47,6 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   try {
     const { name,email,password} = req.body 
-    console.log(email);
     const user = await User.findOne({email})
     if (user) {
       return res.status(400).send({message: "User already exists"})
@@ -96,7 +123,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 export {
-  authUser,
+  loginUser,
   registerUser,
   logoutUser,
   getUserProfile,

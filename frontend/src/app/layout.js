@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "@/store";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 const roboto = Roboto({
@@ -23,6 +24,8 @@ const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const router = useRouter()
+  console.log(router);
   return (
     <React.StrictMode>
       <html lang="en">

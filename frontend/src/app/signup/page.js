@@ -1,8 +1,8 @@
-import SignUp from "@/screens/SignUp"
+import SignUpScreen from "@/screens/SignUpScreen"
 
 const page = () => {
   return (
-    <SignUp/>
+    <SignUpScreen/>
   )
 }
 

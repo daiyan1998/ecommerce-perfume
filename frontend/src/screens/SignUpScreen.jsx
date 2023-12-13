@@ -34,7 +34,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUpScreen() {
 
     const [signin,{isLoading}] = useSigninMutation()
     console.log(isLoading);

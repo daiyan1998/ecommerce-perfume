@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetProductsQuery } from "@/slices/productsApiSlice";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import {Swiper,SwiperSlide} from "swiper/react";
 import 'swiper/css';
@@ -22,14 +22,26 @@ const BestSellingProducts = () => {
         }}
         navigation={true}
         modules = {[Navigation,Pagination]}
+        style={{padding:'1rem 0'}}
+        breakpoints={{
+          320:{slidesPerView: 1},
+          768:{slidesPerView: 2},
+          1024:{slidesPerView: 4},
+        }}
       >
-        {
-          products?.map(product => (
+        {isLoading?(
+          [1,2,3,4].map(product => (
             <SwiperSlide key={product}>
-              <ProductCard product = {product}/>
+              <ProductCard product = {product} isLoading={isLoading}/>
             </SwiperSlide>
           ))
-        }
+        ):(
+          products?.map(product => (
+            <SwiperSlide key={product}>
+              <ProductCard product = {product} isLoading={isLoading}/>
+            </SwiperSlide>
+          ))
+        )}
         
       </Swiper>
     </>
