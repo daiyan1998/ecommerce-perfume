@@ -12,7 +12,6 @@ const Banner = (props) => {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    backgroundColor: "red",
     height: "500px",
     width: "auto",
     objectFit: "contain",

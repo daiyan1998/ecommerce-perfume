@@ -26,7 +26,7 @@ import ProductDesc from "@/components/productScreen/ProductDesc";
 const ProductScreen = () => {
   const [price, setPrice] = useState("");
   const [ml, setMl] = useState(null);
- 
+
   const dispatch = useDispatch();
 
   // @desc Use state to track the input value.

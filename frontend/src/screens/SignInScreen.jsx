@@ -13,6 +13,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import toast from 'react-hot-toast';
+import { useSigninMutation } from '@/slices/userApiSlice';
 
 function Copyright(props) {
   return (
@@ -32,13 +34,23 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInScreen() {
-  const handleSubmit = (event) => {
+  const [signin,{isLoading}] = useSigninMutation()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
     const data = new FormData(event.currentTarget);
-    console.log({
+    const formData = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }
+
+    const res = await signin(formData).unwrap() 
+    toast.success(res.message)
+    } catch (error) {
+    toast.error(error.data.message) 
+    }
+
   };
 
   return (

@@ -7,13 +7,13 @@ import React, { useEffect } from "react";
 const HomeScreen = () => {
   return (
     <>
-    <Container>
-      <BannerSwiper />
-      <BestSellingProducts />
-    </Container>
-    <footer style={{backgroundColor:'black',marginTop:'2rem'}}>
-      <Footer/>
-    </footer>
+      <Container>
+        <BannerSwiper />
+        <BestSellingProducts />
+      </Container>
+      <footer style={{ backgroundColor: "black", marginTop: "2rem" }}>
+        <Footer />
+      </footer>
     </>
   );
 };

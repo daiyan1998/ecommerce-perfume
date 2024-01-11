@@ -12,11 +12,11 @@ import { useRouter } from "next/navigation";
 const inter = Inter({ subsets: ["latin"] });
 
 const roboto = Roboto({
-  weight: ['300','400', '700'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap',
-})
+  weight: ["300", "400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const metadata = {
   title: "Create Next App",
@@ -24,20 +24,17 @@ const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const router = useRouter()
-  console.log(router);
+  const router = useRouter();
   return (
     <React.StrictMode>
       <html lang="en">
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <body className={roboto.className}>
-              <Toaster/>
-              <Header />
-              {children}
-            </body>
-          </Provider>
-        </ThemeProvider>
+        <Provider store={store}>
+          <body className={roboto.className}>
+            <Toaster />
+            <Header />
+            {children}
+          </body>
+        </Provider>
       </html>
     </React.StrictMode>
   );
