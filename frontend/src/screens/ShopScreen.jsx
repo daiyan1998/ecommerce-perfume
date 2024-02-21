@@ -39,7 +39,7 @@ const categoryNames = [
 const ShopScreen = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
   const PriceRangeSlider = () => {
-    const [value, setValue] = useState([0, 10000]);
+    const [value, setValue] = useState([0, 10]);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);

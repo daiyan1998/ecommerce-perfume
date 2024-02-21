@@ -63,19 +63,21 @@ const ProductCard = ({ product, isLoading }) => {
         {isLoading ? (
           <Skeleton sx={{ height: "3.5rem" }} />
         ) : (
-          <Button
-            variant="outlined"
-            color="secondary"
-            fullWidth
-            sx={{
-              ":hover": {
-                bgcolor: "black",
-                color: "white",
-              },
-            }}
-          >
-            View More
-          </Button>
+          <Link href={`/product/${_id}`}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              sx={{
+                ":hover": {
+                  bgcolor: "black",
+                  color: "white",
+                },
+              }}
+            >
+              View More
+            </Button>
+          </Link>
         )}
       </CardContent>
     </Card>

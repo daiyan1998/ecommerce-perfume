@@ -10,7 +10,6 @@ import ProductCard from "./Shared/ProductCard";
 
 const BestSellingProducts = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
-  console.log(products);
   return (
     <>
       <Typography variant="h4" textAlign="center" my={5}>

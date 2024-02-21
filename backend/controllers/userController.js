@@ -1,43 +1,31 @@
+import { generateToken } from "../utils/generateToken.js";
 import asyncHandler from "./../middleware/asyncHandler.js";
 import User from "./../models/userModel.js";
-import  bcryptjs  from 'bcryptjs';
-import jwt from 'jsonwebtoken'
+import bcryptjs from "bcryptjs";
 
 // @desc    Login user & get token
 // @route   POST api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
   try {
-    const {email,password} = req.body 
-    const user = await User.findOne({email})
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-    if(!user) {
-      res.status(400).send({message:'Invalid user or password'})
+    if (!user) {
+      res.status(400).send({ message: "Invalid user or password" });
     }
 
-    const passCheck = await bcryptjs.compare(password,user.password);
-    if(!passCheck) {
-      res.status(400).send({message:'Invalid user or password'})
+    const passCheck = await bcryptjs.compare(password, user.password);
+    if (!passCheck) {
+      res.status(400).send({ message: "Invalid user or password" });
     }
 
-    // create token data
-    const tokenData = {
-      id: user._id,
-      name: user.name,
-      email: user.email
+    // create token
+    generateToken(res, user._id);
 
-    }
-
-    // crete token
-    const token = jwt.sign(tokenData,process.env.TOKEN_SECRET,{expiresIn: "1h"})
-
-    res.cookie('token', token, {
-      httpOnly: true,
-    })
-
-    res.send({message:'Login successful'})
+    res.status(200).send({ message: "Login successful" });
   } catch (error) {
-    res.status(400).send({message: "Login error", error: error.message});
+    res.status(400).send({ message: "Login error", error: error.message });
   }
 });
 
@@ -46,30 +34,34 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   try {
-    const { name,email,password} = req.body 
-    const user = await User.findOne({email})
-    if (user) {
-      return res.status(400).send({message: "User already exists"})
+    const { name, email, password } = req.body;
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      res.status(400);
+      throw new Error("User already exists");
     }
 
     // Hash password
-    const salt = await bcryptjs.genSalt(10)
-    const hasedPassword = await bcryptjs.hash(password,salt)
+    const salt = await bcryptjs.genSalt(10);
+    const hasedPassword = await bcryptjs.hash(password, salt);
 
-    // Create User 
-    const newUser = new User({
+    // Create User
+    const user = await User.create({
       name,
       email,
-      password: hasedPassword
-    })
+      password: hasedPassword,
+    });
 
-    const savedUser = await newUser.save()
-
-
-    res.send({message: "User created successfully",success: true, savedUser})
-
+    if (user) {
+      generateToken(res, user._id);
+      res.send({
+        message: "User created successfully",
+        success: true,
+        user,
+      });
+    }
   } catch (error) {
-    res.status(400).send({message: "Sign up error", error: error.message});
+    res.status(400).send({ message: "Sign up error", error: error.message });
   }
 });
 
@@ -77,21 +69,60 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST api/users/logout
 // @access  Private
 const logoutUser = asyncHandler(async (req, res) => {
-  res.send("logout user");
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 // @desc    Get user profile
 // @route   GET api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.send("get user profile");
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 // @desc    Update user profile
 // @route   PUT api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.send("update user profile");
+  const user = await User.findById(req.user._id);
+  console.log(user);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 // @desc    Get users

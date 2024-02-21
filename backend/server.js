@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import producRoutes from "./routes/productRoutes.js";
@@ -12,12 +13,12 @@ const port = process.env.PORT || 5000;
 connectDB(); // connect to MongoDB
 
 const app = express();
+app.use(cookieParser());
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json  
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 app.use(cors());
-
 
 app.get("/", (req, res) => {
   res.send("API is running...");
