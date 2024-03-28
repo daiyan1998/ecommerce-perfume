@@ -72,7 +72,11 @@ const ShopScreen = () => {
               <Typography variant="h6">Brands</Typography>
               <FormGroup>
                 {brandNames.map((brandName) => (
-                  <FormControlLabel control={<Checkbox />} label={brandName} />
+                  <FormControlLabel
+                    key={brandName}
+                    control={<Checkbox />}
+                    label={brandName}
+                  />
                 ))}
               </FormGroup>
             </Box>
@@ -81,7 +85,11 @@ const ShopScreen = () => {
               <Typography variant="h6">Category</Typography>
               <FormGroup>
                 {categoryNames.map((category) => (
-                  <FormControlLabel control={<Checkbox />} label={category} />
+                  <FormControlLabel
+                    key={category}
+                    control={<Checkbox />}
+                    label={category}
+                  />
                 ))}
               </FormGroup>
             </Box>
@@ -97,8 +105,8 @@ const ShopScreen = () => {
           {isLoading ? (
             <Typography>Loading</Typography>
           ) : (
-            products.map((product) => (
-              <Grid item md={4}>
+            products.map((product, i) => (
+              <Grid key={i} item md={4}>
                 <ProductCard product={product} isLoading={isLoading} />
               </Grid>
             ))

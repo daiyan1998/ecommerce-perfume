@@ -43,7 +43,7 @@ const CartItemCheckout = ({ cartItem }) => {
   // useEffect to handle state updates after render
   useEffect(() => {
     dispatch(changeItemCount({ ...cartItem, qty }));
-  }, [qty]);
+  }, [qty, cartItem, dispatch]);
 
   const removeFromCartHandler = (cartUniqueId) => {
     dispatch(removeFromCart({ cartUniqueId }));
@@ -57,7 +57,9 @@ const CartItemCheckout = ({ cartItem }) => {
     >
       <Grid container spacing={2}>
         <Grid item>
-          <ButtonBase sx={{ width:{xs:250,sm:150}, height:{xs:300,sm:100} }}>
+          <ButtonBase
+            sx={{ width: { xs: 250, sm: 150 }, height: { xs: 300, sm: 100 } }}
+          >
             <Image
               alt="complex"
               src={cartItem.image}
@@ -173,7 +175,7 @@ const CartScreen = () => {
   return (
     <>
       <Box bgcolor="#F6F9FC">
-        <SimpleCheckoutSteps step1/>
+        <SimpleCheckoutSteps step1 />
         <Container sx={{ py: 5 }}>
           <Grid container spacing={2}>
             <Grid item md={8} xs={12}>
