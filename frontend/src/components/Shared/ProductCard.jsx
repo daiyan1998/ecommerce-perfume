@@ -84,13 +84,13 @@ const ProductCard = ({ product, isLoading }) => {
   );
 };
 
-ProductCard.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    priceRange: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-  }),
-};
+// ProductCard.propTypes = {
+//   product: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     priceRange: PropTypes.string.isRequired,
+//     image: PropTypes.string.isRequired,
+//     _id: PropTypes.string.isRequired,
+//   }),
+// };
 
 export default ProductCard;

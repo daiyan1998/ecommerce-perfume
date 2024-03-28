@@ -11,7 +11,9 @@ export const updateCart = (state) => {
   // Calculate total price
   state.totalPrice = Number(state.itemsPrice).toFixed(2);
 
-  localStorage.setItem("cart", JSON.stringify(state));
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cart", JSON.stringify(state));
+  }
 
   return state;
 };

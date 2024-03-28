@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -12,6 +13,7 @@ import bodyParser from "body-parser";
 const port = process.env.PORT || 5000;
 
 connectDB(); // connect to MongoDB
+const __dirname = fileURLToPath(import.meta.url);
 
 const app = express();
 app.use(cookieParser());
