@@ -1,3 +1,5 @@
 {
-  "rewrites": [{ "source": "/frontend/(.*)", "destination": "/" }]
+  "rewrites": [
+    { "source": "/frontend/(.*)", "destination": "/frontend/index.html" }
+  ]
 }
