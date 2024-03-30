@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const API_URL = process.env.API_URL;
+const API_URL = "https://ecommerce-sabbir.vercel.app/";
 const nextConfig = {
   images: {
     remotePatterns: [
