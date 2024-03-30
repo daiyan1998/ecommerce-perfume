@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cd .. && npm run build && npm run start",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "cd.. && npm install --save-dev && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
