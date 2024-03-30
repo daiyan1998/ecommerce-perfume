@@ -10,7 +10,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import producRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 connectDB(); // connect to MongoDB
 const __dirname = fileURLToPath(import.meta.url);
