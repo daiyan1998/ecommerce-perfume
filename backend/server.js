@@ -37,6 +37,7 @@ if (process.env.NODE_ENV !== "production") {
     res.send("API is running...");
   });
 }
+console.log("server", process.env.NODE_ENV);
 
 app.use(notFound);
 app.use(errorHandler);
