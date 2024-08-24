@@ -15,7 +15,7 @@ const pages = [
     sub: ["Shop1", "shop2"],
     navigate: "/shop",
   },
-  { title: "Blogs", sub: ["Blogs1"] },
+  // { title: "Blogs", sub: ["Blogs1"] },
 ];
 
 export default function NavLink() {

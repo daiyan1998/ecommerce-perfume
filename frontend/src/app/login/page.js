@@ -1,9 +1,6 @@
-import SignInScreen from "@/screens/SignInScreen"
-
+import LogInScreen from "@/screens/LogInScreen";
 const page = () => {
-  return (
-    <SignInScreen/>
-  )
-}
+  return <LogInScreen />;
+};
 
-export default page
+export default page;

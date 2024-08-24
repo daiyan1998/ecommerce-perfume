@@ -105,7 +105,7 @@ const ShopScreen = () => {
           {isLoading ? (
             <Typography>Loading</Typography>
           ) : (
-            products.map((product, i) => (
+            products?.map((product, i) => (
               <Grid key={i} item md={4}>
                 <ProductCard product={product} isLoading={isLoading} />
               </Grid>

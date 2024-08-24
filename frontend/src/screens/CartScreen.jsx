@@ -27,7 +27,7 @@ import { changeItemCount, removeFromCart } from "@/slices/cartSlice";
 import Link from "next/link";
 import SimpleCheckoutSteps from "@/components/SimpleCheckoutSteps";
 
-const CartItemCheckout = ({ cartItem }) => {
+export const CartItemCheckout = ({ cartItem }) => {
   const [qty, SetQty] = useState(cartItem.qty);
   const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ const CartItemCheckout = ({ cartItem }) => {
   // useEffect to handle state updates after render
   useEffect(() => {
     dispatch(changeItemCount({ ...cartItem, qty }));
-  }, [qty, cartItem, dispatch]);
+  }, [qty]);
 
   const removeFromCartHandler = (cartUniqueId) => {
     dispatch(removeFromCart({ cartUniqueId }));
@@ -116,7 +116,7 @@ const SideBar = ({ itemsPrice }) => {
       <Stack direction="row" justifyContent="space-between">
         <Typography color={grey[500]}>Total : </Typography>
         <Typography fontWeight={600} fontSize={20}>
-          {itemsPrice}
+          ৳{itemsPrice}
         </Typography>
       </Stack>
       <Divider sx={{ my: 3 }} />
@@ -161,9 +161,9 @@ const SideBar = ({ itemsPrice }) => {
           </RadioGroup>
         </FormControl>
       </div>
-      <Link href="/checkout">
+      <Link href="/shipping">
         <Button variant="contained" fullWidth>
-          Checkout Now
+          Continue
         </Button>
       </Link>
     </Paper>
@@ -172,6 +172,29 @@ const SideBar = ({ itemsPrice }) => {
 
 const CartScreen = () => {
   const { cartItems, itemsPrice } = useSelector((state) => state.cart);
+
+  if (!cartItems || cartItems.length === 0) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        bgcolor="#F6F9FC"
+      >
+        <Image
+          src="/shopping-bag.svg"
+          height={300}
+          width={200}
+          alt="shopping bag"
+        />
+        <Typography variant="h4" p={1} align="center">
+          Your shopping bag is empty. Start shopping
+        </Typography>
+      </Box>
+    ); // or any loading state
+  }
   return (
     <>
       <Box bgcolor="#F6F9FC">

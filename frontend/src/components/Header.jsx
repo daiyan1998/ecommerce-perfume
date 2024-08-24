@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -13,10 +14,16 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavLink from "./NavLink";
-import { FavoriteBorder } from "@mui/icons-material";
+import { PermIdentityOutlined } from "@mui/icons-material";
 import CartDrawer from "./Shared/CartDrawer";
-import SigninModal from "../components/SigninModal";
-import { Container } from "@mui/material";
+import { Avatar, Button, Container } from "@mui/material";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { deepOrange } from "@mui/material/colors";
+import { useState } from "react";
+import { useLogoutMutation } from "@/slices/userApiSlice";
+import { logout } from "@/slices/authSlice";
+import { useRouter } from "next/navigation";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,11 +66,43 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [avatarEl, setavatarEl] = useState(null);
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  const router = useRouter();
 
+  const isAvatarOpen = Boolean(avatarEl);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const [isClient, setIsClient] = useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const avatarClick = (e) => {
+    setavatarEl(e.currentTarget);
+  };
+
+  const avatarClose = () => {
+    setavatarEl(null);
+  };
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      avatarClose();
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -158,12 +197,12 @@ export default function Header() {
 
   return (
     <>
-        <AppBar
-          variant="none"
-          sx={{ bgcolor: "white", color: "black" }}
-          position="sticky"
-        >
-          <Container>
+      <AppBar
+        variant="none"
+        sx={{ bgcolor: "white", color: "black" }}
+        position="sticky"
+      >
+        <Container>
           <Toolbar>
             {/* NavLink Component */}
             <NavLink />
@@ -177,8 +216,8 @@ export default function Header() {
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: "flex" }}>
-              <IconButton
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {/* <IconButton
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
@@ -186,12 +225,51 @@ export default function Header() {
                 <Badge badgeContent={4} color="error">
                   <FavoriteBorder />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               {/* Cart Component*/}
               <CartDrawer />
 
               {/* Signin Modal Component */}
-              <SigninModal />
+              {isClient && (
+                <>
+                  {userInfo ? (
+                    <>
+                      <Button
+                        id="avatar-button"
+                        aria-controls={isAvatarOpen ? "avatar-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={isAvatarOpen ? "true" : undefined}
+                        onClick={avatarClick}
+                      >
+                        <Avatar
+                          sx={{ bgcolor: deepOrange[500] }}
+                          variant="square"
+                        >
+                          N
+                        </Avatar>
+                      </Button>
+                      <Menu
+                        id="avatar-menu"
+                        anchorEl={avatarEl}
+                        open={isAvatarOpen}
+                        onClose={avatarClose}
+                        MenuListProps={{
+                          "aria-labelledby": "avatar-button",
+                        }}
+                      >
+                        <MenuItem onClick={avatarClose}>Profile</MenuItem>
+                        <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                      </Menu>
+                    </>
+                  ) : (
+                    <Link href="/login">
+                      <Button startIcon={<PermIdentityOutlined />}>
+                        Signin
+                      </Button>
+                    </Link>
+                  )}
+                </>
+              )}
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -206,11 +284,10 @@ export default function Header() {
               </IconButton>
             </Box>
           </Toolbar>
-
-          </Container>
-        </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
+        </Container>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
     </>
   );
 }

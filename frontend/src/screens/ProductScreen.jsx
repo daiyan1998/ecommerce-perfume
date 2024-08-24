@@ -68,7 +68,7 @@ const ProductScreen = () => {
   return (
     <>
       {isLoading ? (
-        <div></div>
+        <Loading />
       ) : (
         <Container sx={{ mt: 10 }}>
           <Grid container columnSpacing={3} rowSpacing={{ xs: 5 }}>

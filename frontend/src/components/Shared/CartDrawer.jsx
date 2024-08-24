@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -117,27 +118,27 @@ export default function CartDrawer() {
   );
 
   return (
-    <div>
-      <>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-          onClick={toggleDrawer("right", true)}
-          variant="contained"
+    <>
+      <IconButton
+        size="large"
+        color="inherit"
+        onClick={toggleDrawer("right", true)}
+        variant="contained"
+      >
+        <Badge
+          badgeContent={cartItems.length > 0 ? cartItems.length : 0}
+          color="error"
         >
-          <Badge badgeContent={cartItems.length} color="error">
-            <ShoppingCartOutlined />
-          </Badge>
-        </IconButton>
-        <Drawer
-          anchor="right"
-          open={state["right"]}
-          onClose={toggleDrawer("right", false)}
-        >
-          {list("right")}
-        </Drawer>
-      </>
-    </div>
+          <ShoppingCartOutlined />
+        </Badge>
+      </IconButton>
+      <Drawer
+        anchor="right"
+        open={state["right"]}
+        onClose={toggleDrawer("right", false)}
+      >
+        {list("right")}
+      </Drawer>
+    </>
   );
 }

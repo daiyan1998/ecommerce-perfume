@@ -1,12 +1,8 @@
-"use client";
 import "./globals.css";
 import { Roboto } from "next/font/google";
-import Header from "@/components/Header";
-import { Provider } from "react-redux";
-import store from "@/store";
 import React from "react";
-import { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import ReduxProvider from "@/app/ReduxProvider";
+import Header from "@/components/Header";
 
 const roboto = Roboto({
   weight: ["300", "400", "700"],
@@ -21,17 +17,15 @@ const roboto = Roboto({
 // };
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
   return (
     <React.StrictMode>
       <html lang="en">
-        <Provider store={store}>
-          <body className={roboto.className}>
-            <Toaster />
+        <body className={roboto.className} suppressHydrationWarning={true}>
+          <ReduxProvider>
             <Header />
             {children}
-          </body>
-        </Provider>
+          </ReduxProvider>
+        </body>
       </html>
     </React.StrictMode>
   );

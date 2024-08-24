@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useGetProductsQuery } from "@/slices/productsApiSlice";
 import { Box, Typography } from "@mui/material";

@@ -54,7 +54,8 @@ export default function SignUpScreen() {
       const res = await signup(formData).unwrap();
       toast.success(res.message);
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error?.data?.error);
+      console.log(error);
     }
   };
 

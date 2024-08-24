@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import {
   Box,
   Button,
@@ -65,15 +64,15 @@ const ProductCard = ({ product, isLoading }) => {
         ) : (
           <Link href={`/product/${_id}`}>
             <Button
-              variant="outlined"
-              color="secondary"
+              variant="contained"
+              // color="secondary"
               fullWidth
-              sx={{
-                ":hover": {
-                  bgcolor: "black",
-                  color: "white",
-                },
-              }}
+              // sx={{
+              //   ":hover": {
+              //     bgcolor: "black",
+              //     color: "white",
+              //   },
+              // }}
             >
               View More
             </Button>

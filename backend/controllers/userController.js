@@ -7,61 +7,59 @@ import bcryptjs from "bcryptjs";
 // @route   POST api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-    if (!user) {
-      res.status(400).send({ message: "Invalid user or password" });
-    }
-
-    const passCheck = await bcryptjs.compare(password, user.password);
-    if (!passCheck) {
-      res.status(400).send({ message: "Invalid user or password" });
-    }
-
-    // create token
-    generateToken(res, user._id);
-
-    res.status(200).send({ message: "Login successful" });
-  } catch (error) {
-    res.status(400).send({ message: "Login error", error: error.message });
+  if (!user) {
+    res.status(400).send({ message: "Invalid user or password" });
   }
+
+  const passCheck = await bcryptjs.compare(password, user.password);
+  if (!passCheck) {
+    res.status(400).send({ message: "Invalid user or password" });
+  }
+
+  // create token
+  generateToken(res, user._id);
+
+  res.status(200).send({
+    message: "Login successful",
+    user: { name: user.name, email: user.email },
+  });
 });
 
 // @desc    Register user
 // @route   POST api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const userExist = await User.findOne({ email });
-    if (userExist) {
-      res.status(400);
-      throw new Error("User already exists");
-    }
+  const { name, email, password } = req.body;
+  const userExist = await User.findOne({ email });
+  if (userExist) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
 
-    // Hash password
-    const salt = await bcryptjs.genSalt(10);
-    const hasedPassword = await bcryptjs.hash(password, salt);
+  // Hash password
+  const salt = await bcryptjs.genSalt(10);
+  const hasedPassword = await bcryptjs.hash(password, salt);
 
-    // Create User
-    const user = await User.create({
-      name,
-      email,
-      password: hasedPassword,
+  // Create User
+  const user = await User.create({
+    name,
+    email,
+    password: hasedPassword,
+  });
+
+  if (user) {
+    generateToken(res, user._id);
+    res.send({
+      message: "User created successfully",
+      success: true,
+      user,
     });
-
-    if (user) {
-      generateToken(res, user._id);
-      res.send({
-        message: "User created successfully",
-        success: true,
-        user,
-      });
-    }
-  } catch (error) {
-    res.status(400).send({ message: "Sign up error", error: error.message });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
   }
 });
 
