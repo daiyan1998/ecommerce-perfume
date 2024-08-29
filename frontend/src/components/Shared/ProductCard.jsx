@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 
 const ProductCard = ({ product, isLoading }) => {
-  const { name, priceRange, image, _id } = product;
+  const { name, priceRange, image, _id, priceByMl } = product;
 
   return (
     <Card>
@@ -56,7 +56,7 @@ const ProductCard = ({ product, isLoading }) => {
           <Skeleton animation="wave" sx={{ fontSize: 20, fontWeight: "700" }} />
         ) : (
           <Typography fontSize={20} sx={{ fontWeight: "700" }} gutterBottom>
-            {priceRange}৳
+            ৳{priceByMl[0].price} - ৳{priceByMl[priceByMl.length - 1].price}
           </Typography>
         )}
         {isLoading ? (

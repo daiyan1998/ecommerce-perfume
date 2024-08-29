@@ -301,7 +301,10 @@ export default function Header() {
                             onClick={adminClose}
                           >
                             <Link href="/admin/orderlist">
-                              <MenuItem>Order List</MenuItem>
+                              <MenuItem>Orders</MenuItem>
+                            </Link>
+                            <Link href="/admin/productlist">
+                              <MenuItem>Products</MenuItem>
                             </Link>
                           </Menu>
                         </>

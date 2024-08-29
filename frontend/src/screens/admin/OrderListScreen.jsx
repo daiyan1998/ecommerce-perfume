@@ -22,8 +22,8 @@ const OrderListScreen = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
   console.log(orders);
   return (
-    <Container>
-      <Typography variant="h1"></Typography>
+    <Container sx={{ mt: 10 }}>
+      <Typography variant="h2">Orders</Typography>
       {isLoading ? (
         <Loading />
       ) : error ? (
