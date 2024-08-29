@@ -24,7 +24,12 @@ const loginUser = asyncHandler(async (req, res) => {
 
   res.status(200).send({
     message: "Login successful",
-    user: { name: user.name, email: user.email },
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
   });
 });
 
@@ -99,7 +104,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-  console.log(user);
 
   if (user) {
     user.name = req.body.name || user.name;
