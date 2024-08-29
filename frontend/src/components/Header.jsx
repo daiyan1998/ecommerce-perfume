@@ -14,7 +14,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NavLink from "./NavLink";
-import { PermIdentityOutlined } from "@mui/icons-material";
+import {
+  AdminPanelSettings,
+  ArrowDropDown,
+  PermIdentityOutlined,
+} from "@mui/icons-material";
 import CartDrawer from "./Shared/CartDrawer";
 import { Avatar, Button, Container } from "@mui/material";
 import Link from "next/link";
@@ -69,6 +73,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [avatarEl, setavatarEl] = useState(null);
+  const [adminEl, setAdminEl] = useState(null);
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const router = useRouter();
@@ -76,6 +81,8 @@ export default function Header() {
   const isAvatarOpen = Boolean(avatarEl);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const isAdminOpen = Boolean(adminEl);
 
   const [isClient, setIsClient] = useState(false);
 
@@ -91,6 +98,14 @@ export default function Header() {
     setavatarEl(null);
   };
 
+  const adminClick = (e) => {
+    setAdminEl(e.currentTarget);
+  };
+
+  const adminClose = () => {
+    setAdminEl(null);
+  };
+
   const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
@@ -100,7 +115,7 @@ export default function Header() {
       dispatch(logout());
       router.push("/login");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -239,6 +254,7 @@ export default function Header() {
                         aria-controls={isAvatarOpen ? "avatar-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={isAvatarOpen ? "true" : undefined}
+                        endIcon={<ArrowDropDown />}
                         onClick={avatarClick}
                       >
                         <Avatar
@@ -257,9 +273,39 @@ export default function Header() {
                           "aria-labelledby": "avatar-button",
                         }}
                       >
-                        <MenuItem onClick={avatarClose}>Profile</MenuItem>
+                        <Link href="/profile">
+                          <MenuItem onClick={avatarClose}>Profile</MenuItem>
+                        </Link>
                         <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                       </Menu>
+                      {/*admin */}
+                      {userInfo && userInfo.isAdmin && (
+                        <>
+                          <Button
+                            aria-controls={
+                              isAdminOpen ? "admin-menu" : undefined
+                            }
+                            aria-haspopup="true"
+                            aria-expanded={isAdminOpen ? "true" : undefined}
+                            startIcon={<AdminPanelSettings />}
+                            endIcon={<ArrowDropDown />}
+                            onClick={adminClick}
+                          >
+                            Admin
+                          </Button>
+                          <Menu
+                            id="admin-menu"
+                            anchorEl={adminEl}
+                            open={isAdminOpen}
+                            onClose={adminClose}
+                            onClick={adminClose}
+                          >
+                            <Link href="/admin/orderlist">
+                              <MenuItem>Order List</MenuItem>
+                            </Link>
+                          </Menu>
+                        </>
+                      )}
                     </>
                   ) : (
                     <Link href="/login">
