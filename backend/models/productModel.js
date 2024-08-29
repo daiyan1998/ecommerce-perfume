@@ -42,6 +42,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    brand: {
+      type: String,
+      required: true,
+      default: "Unknown",
+    },
     description: {
       type: String,
       required: true,
@@ -63,10 +68,6 @@ const productSchema = new mongoose.Schema(
         price: Number,
       },
     ],
-    priceRange: {
-      type: String,
-      required: true,
-    },
   },
   {
     timestamps: true,
