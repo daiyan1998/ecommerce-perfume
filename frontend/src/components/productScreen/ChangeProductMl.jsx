@@ -10,7 +10,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const ChangeProductMl = ({ product }) => {
-  console.log("ChangeProductMl");
   const { ml, price } = useSelector((state) => state.select);
   const dispatch = useDispatch();
   // @desc Handle price change.

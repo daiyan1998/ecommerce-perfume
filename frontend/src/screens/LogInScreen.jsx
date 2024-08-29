@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { useLoginMutation } from "@/slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "@/slices/authSlice";
+import { redirect } from "next/navigation";
 
 function Copyright(props) {
   return (
@@ -42,7 +43,11 @@ export default function LogInScreen() {
   const [signin, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
 
-  // const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  React.useEffect(() => {
+    if (userInfo) return redirect("/");
+  }, [userInfo]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

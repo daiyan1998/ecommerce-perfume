@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutScreen = () => {
   const { cartItems, itemsPrice } = useSelector((state) => state.cart);
-  console.log(itemsPrice);
 
   const orderHandler = (e) => {
     e.preventDefault();
@@ -29,7 +28,6 @@ const CheckoutScreen = () => {
       phone: data.get("phone"),
       shipping: data.get("shippingCharge"),
     };
-    console.log(formData);
   };
   return (
     <>

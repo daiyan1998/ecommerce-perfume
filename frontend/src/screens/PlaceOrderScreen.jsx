@@ -38,7 +38,7 @@ const PlaceOrderScreen = () => {
       dispatch(clearCartItems());
       router.push(`/order/${res._id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

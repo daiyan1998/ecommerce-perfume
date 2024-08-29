@@ -32,11 +32,16 @@ app.use("/api/orders", orderRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
-console.log("server", process.env.NODE_ENV);
+
+app.get("/api/config/paypal", (req, res) =>
+  res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+);
+
+console.info("server", process.env.NODE_ENV);
 
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`server listening on port ${port}`));
+app.listen(port, () => console.info(`server listening on port ${port}`));
 
 export default app;

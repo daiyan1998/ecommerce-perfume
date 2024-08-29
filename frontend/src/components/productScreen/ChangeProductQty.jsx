@@ -7,7 +7,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ChangeProductQty = ({ product }) => {
-  console.log("ChangeProductQty");
   const { qty, ml, price } = useSelector((state) => state.select);
   const dispatch = useDispatch();
   // @desc Function to increase the quantity.

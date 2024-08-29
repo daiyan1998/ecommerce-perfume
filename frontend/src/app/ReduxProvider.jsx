@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import store from "../store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const ReduxProvider = ({ children }) => {
   const storeRef = useRef(null);
@@ -12,7 +13,7 @@ const ReduxProvider = ({ children }) => {
   return (
     <Provider store={storeRef.current}>
       <Toaster />
-      {children}
+      <PayPalScriptProvider>{children}</PayPalScriptProvider>
     </Provider>
   );
 };

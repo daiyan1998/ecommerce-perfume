@@ -17,7 +17,7 @@ const initialState = localStorage.getItem("cart")
 //     };
 // };
 
-// const initialState = getInitialState();
+// const initialState = getInitialState()
 
 const cartSlice = createSlice({
   name: "cart",

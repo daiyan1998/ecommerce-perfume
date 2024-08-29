@@ -33,7 +33,6 @@ export default function AddressForm() {
       email: data.get("email"),
       phoneNumber: data.get("phone"),
     };
-    console.log(formData);
     dispatch(saveShippingAddress({ ...formData }));
     router.push("/payment");
   };

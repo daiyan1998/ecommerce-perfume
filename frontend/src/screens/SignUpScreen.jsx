@@ -40,7 +40,6 @@ const defaultTheme = createTheme();
 
 export default function SignUpScreen() {
   const [signup, { isLoading }] = useSignupMutation();
-  console.log(isLoading);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,7 +54,6 @@ export default function SignUpScreen() {
       toast.success(res.message);
     } catch (error) {
       toast.error(error?.data?.error);
-      console.log(error);
     }
   };
 
